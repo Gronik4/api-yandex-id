@@ -24,6 +24,7 @@ passport.use(new YandexStrategy({
         callbackURL: "http://127.0.0.1:3000/auth/yandex/callback"
     },
     (accessToken, refreshToken, profile, done) => {
+        console.log('new YandexStrategy');
         process.nextTick(() => {
             return done(null, profile);
         });
@@ -42,19 +43,30 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/', (req, res) => {
+    console.log('/');
     res.render('index', {user: req.user});
 });
 
 app.get('/profile',
     isAuthenticated,
     (req, res) => {
-        res.json({user: req.user});
-    }
+        console.log('/profile');
+        res.json({user: req.user}); 
+    },
 );
 
 app.get('/auth/yandex',
-    passport.authenticate('yandex')
+    passport.authenticate('yandex'),
 );
+
+app.get('/auth/yandex/callback',
+    passport.authenticate('yandex', {failureRedirect: '/'}),
+    (req, res) => {
+        console.log('/auth/yandex/callback');
+        res.redirect('/');
+    }
+);
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

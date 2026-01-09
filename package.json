@@ -16,7 +16,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
+    "start": "nodemon app.js",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
@@ -27,6 +27,7 @@
     "express": "^5.2.1",
     "express-session": "^1.18.2",
     "gh-pages": "^6.3.0",
+    "nodemon": "^3.1.11",
     "passport": "^0.7.0",
     "passport-yandex": "^0.0.5"
   }
