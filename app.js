@@ -67,6 +67,13 @@ app.get('/auth/yandex/callback',
     }
 );
 
+app.get('/logout', (req, res)=> {
+    req.session.destroy(()=> {
+        res.clearCookie('connect.sid');
+        res.redirect('/')
+    })
+})
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
